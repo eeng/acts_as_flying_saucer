@@ -12,7 +12,7 @@ module ActsAsFlyingSaucer
 						:tmp_path => "/tmp",
 						:run_mode => :once,
 						:max_memory_mb => 50,
-						:nailgun=> false,
+						:nailgun=> true,
 						:nailgun_port => '2113',
 						:nailgun_host => 'localhost',
 		}
