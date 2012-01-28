@@ -5,6 +5,8 @@ module ActsAsFlyingSaucer
 	#
 	class Xhtml2Pdf
 		def self.write_pdf(options)		  
+		  return if File.exists?(options[:output_file])
+		  
 			if !File.exists?(options[:input_file])
 				File.open(options[:input_file], 'w') do |file|
 					file << options[:html]
@@ -18,6 +20,7 @@ module ActsAsFlyingSaucer
 			else
 				command = "#{options[:java_bin]} -Xmx512m -Djava.awt.headless=true -cp #{class_path} acts_as_flying_saucer.Xhtml2Pdf #{options[:input_file]} #{options[:output_file]}"
 			end
+			
 			while not system(command)
         ActsAsFlyingSaucer::Config.setup_nailgun			  
 		  end
