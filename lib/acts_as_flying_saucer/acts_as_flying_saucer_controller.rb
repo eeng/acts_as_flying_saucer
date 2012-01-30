@@ -44,7 +44,7 @@ module ActsAsFlyingSaucer
           host = ActionController::Base.asset_host
         	ActionController::Base.asset_host = request.protocol + request.host_with_port if host.blank?
 					html = render_to_string options
-					if options[:debug_html] || params[:debug].present?
+					if options[:debug_html] || params[:debug].present? || Rails.env.test?
 						#    ActionController::Base.asset_host = host
 						response.header["Content-Type"] = "text/html; charset=utf-8"
 						render :text => html and return
