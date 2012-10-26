@@ -25,7 +25,7 @@ module ActsAsFlyingSaucer
 				}
 				Nailgun::NailgunServer.new(["start"]).daemonize
 				count =0
-				while(!system("lsof -i -n -P|grep #{ActsAsFlyingSaucer::Config.options[:nailgun_port]}") && count<9)
+				while(!nailgun_running? && count<9)
 					sleep(1)
 					count+=1
 				end
@@ -34,10 +34,12 @@ module ActsAsFlyingSaucer
 				Nailgun::NgCommand.ng_cp(acts_as_flying_saucer_jar_path)
 				Nailgun::NgCommand.ng_alias("Xhtml2Pdf","acts_as_flying_saucer.Xhtml2Pdf")
 				Nailgun::NgCommand.ng_alias("encryptPdf", "acts_as_flying_saucer.encryptPdf")
-
 			end
 		end
-		# cattr_accessor :options
+		
+		def self.nailgun_running?
+			system("lsof -i -n -P|grep 'java.*\\b#{ActsAsFlyingSaucer::Config.options[:nailgun_port]}\\b'")
+		end
 	end
 
 end

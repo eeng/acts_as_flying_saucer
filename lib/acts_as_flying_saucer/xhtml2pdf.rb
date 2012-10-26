@@ -21,9 +21,8 @@ module ActsAsFlyingSaucer
 				command = "#{options[:java_bin]} -Xmx512m -Djava.awt.headless=true -cp #{class_path} acts_as_flying_saucer.Xhtml2Pdf #{options[:input_file]} #{options[:output_file]}"
 			end
 			
-			while not system(command)
-        ActsAsFlyingSaucer::Config.setup_nailgun			  
-		  end
+			ActsAsFlyingSaucer::Config.setup_nailgun unless ActsAsFlyingSaucer::Config.nailgun_running?
+			system(command)
 		end
 
 		def self.encrypt_pdf(options,output_file_name,password)
