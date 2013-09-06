@@ -68,11 +68,12 @@ module ActsAsFlyingSaucer
 				output_file = (options.has_key?(:pdf_file)) ? options[:pdf_file] : File.join(File.expand_path("#{tmp_dir}"),"#{html_digest}.pdf")
 				password = (options.has_key?(:password)) ? options[:password] : ""
 
+				cache = params[:cache] || (Rails.env.development? ? 'false' : 'true')
 				generate_options = ActsAsFlyingSaucer::Config.options.merge({
 								                                                            :input_file => input_file,
 								                                                            :output_file => output_file,
 								                                                            :html => html,
-								                                                            :cache => params[:cache] || "true"
+								                                                            :cache => cache
 				                                                            })
 
 				ActsAsFlyingSaucer::Xhtml2Pdf.write_pdf(generate_options)

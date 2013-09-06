@@ -32,8 +32,8 @@ module ActsAsFlyingSaucer
 				acts_as_flying_saucer_jar_path = File.expand_path(File.join(File.dirname(__FILE__),'java','jar','acts_as_flying_saucer.jar'))
 				# ADD IN NAILGUN CLASS
 				Nailgun::NgCommand.ng_cp(acts_as_flying_saucer_jar_path)
-				Nailgun::NgCommand.ng_alias("Xhtml2Pdf","acts_as_flying_saucer.Xhtml2Pdf")
-				Nailgun::NgCommand.ng_alias("encryptPdf", "acts_as_flying_saucer.encryptPdf")
+				# Nailgun::NgCommand.ng_alias("Xhtml2Pdf","acts_as_flying_saucer.Xhtml2Pdf")
+				# Nailgun::NgCommand.ng_alias("encryptPdf", "acts_as_flying_saucer.encryptPdf")
 			end
 		end
 		

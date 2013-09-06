@@ -4,7 +4,7 @@ module ActsAsFlyingSaucer
 	# Xhtml2Pdf
 	#
 	class Xhtml2Pdf
-		def self.write_pdf(options)		  
+		def self.write_pdf(options)		 
 		  return if options[:cache] == "true" && File.exists?(options[:output_file])
 
 			if !File.exists?(options[:input_file])
