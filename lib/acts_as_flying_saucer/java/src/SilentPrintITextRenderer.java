@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.util.List;
@@ -64,7 +65,15 @@ public class SilentPrintITextRenderer {
 
 		_outputDevice = new ITextOutputDevice(_dotsPerPoint);
 
-		ITextUserAgent userAgent = new ITextUserAgent(_outputDevice);
+		ITextUserAgent userAgent = new ITextUserAgent(_outputDevice) {
+			@Override
+			protected InputStream resolveAndOpenStream(String url) {
+				InputStream stream = super.resolveAndOpenStream(url);
+				if (stream == null)
+					throw new RuntimeException("Resource not found: " + url);
+				return stream;
+			}
+		};
 		_sharedContext = new SharedContext(userAgent);
 		userAgent.setSharedContext(_sharedContext);
 		_outputDevice.setSharedContext(_sharedContext);
