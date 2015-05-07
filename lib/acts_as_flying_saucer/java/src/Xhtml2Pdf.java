@@ -28,7 +28,7 @@ public class Xhtml2Pdf {
 			renderer.createPDF(os);
 			os.close();
 		} catch (Exception e) {
-			Files.delete(FileSystems.getDefault().getPath(output));
+			new File(output).delete();
 			e.printStackTrace();
 			System.exit(1);
 		}
