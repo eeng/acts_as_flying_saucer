@@ -31,6 +31,11 @@
 	<build>
 		<finalName>acts_as_flying_saucer</finalName>
 		<sourceDirectory>lib/acts_as_flying_saucer/java/src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>lib/acts_as_flying_saucer/java/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

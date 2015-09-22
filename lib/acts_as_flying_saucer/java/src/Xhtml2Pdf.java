@@ -1,11 +1,10 @@
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -14,8 +13,13 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import com.lowagie.text.pdf.BaseFont;
+
 public class Xhtml2Pdf {
-	public static void main(String[] args) throws IOException {
+	private static List<String> FONTS = Arrays.asList("Calibri",
+			"Calibri Bold", "Calibri Italic", "Calibri Bold Italic");
+
+	public static void main(String[] args) throws Exception {
 		String input = args[0];
 		String output = args[1];
 		try {
@@ -23,6 +27,9 @@ public class Xhtml2Pdf {
 			String url = new File(input).toURI().toURL().toString();
 			OutputStream os = new FileOutputStream(output);
 			SilentPrintITextRenderer renderer = new SilentPrintITextRenderer();
+			for (String font : FONTS)
+				renderer.getFontResolver().addFont("/fonts/" + font + ".ttf",
+						BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 			renderer.setDocument(url);
 			renderer.layout();
 			renderer.createPDF(os);
