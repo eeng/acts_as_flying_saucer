@@ -17,7 +17,8 @@ import com.lowagie.text.pdf.BaseFont;
 
 public class Xhtml2Pdf {
 	private static List<String> FONTS = Arrays.asList("Calibri",
-			"Calibri Bold", "Calibri Italic", "Calibri Bold Italic");
+			"Calibri Bold", "Calibri Italic", "Calibri Bold Italic", "Arial",
+			"Arial Bold", "Arial Italic", "Arial Bold Italic");
 
 	public static void main(String[] args) throws Exception {
 		String input = args[0];
