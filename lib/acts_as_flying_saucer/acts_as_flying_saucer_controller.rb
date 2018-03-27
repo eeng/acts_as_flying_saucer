@@ -47,7 +47,7 @@ module ActsAsFlyingSaucer
 					if options[:debug_html] || params[:debug].present? || Rails.env.test?
 						#    ActionController::Base.asset_host = host
 						response.header["Content-Type"] = "text/html; charset=utf-8"
-						render :text => html and return
+						render :html => html and return
 					end
 					#sinatra
 				elsif defined?(Sinatra)
@@ -97,7 +97,7 @@ module ActsAsFlyingSaucer
         else
 				  send_file_options = {
 								  :filename => File.basename(output_file),
-								  :disposition => 'inline', 
+								  :disposition => 'inline',
 								  :type => 'application/pdf'
 								  #:x_sendfile => true,
 				  }
