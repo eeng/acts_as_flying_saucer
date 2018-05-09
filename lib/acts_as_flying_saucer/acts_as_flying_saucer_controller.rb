@@ -25,7 +25,6 @@ module ActsAsFlyingSaucer
 		# InstanceMethods
 		#
 		module InstanceMethods
-
 			# render_pdf
 			#
 			def render_pdf(options = {})
@@ -58,34 +57,10 @@ module ActsAsFlyingSaucer
 					end
 				end
 				# saving the file
-				tmp_dir = ActsAsFlyingSaucer::Config.options[:tmp_path]
-        html = TidyFFI::Tidy.new(html,:output_xhtml=>true,:numeric_entities=>true).clean if tidy_clean
-				html_digest = Digest::MD5.hexdigest(html)
-				input_file =File.join(File.expand_path("#{tmp_dir}"),"#{html_digest}.html")
 
-				#logger.debug("html file: #{input_file}")
-
-				output_file = (options.has_key?(:pdf_file)) ? options[:pdf_file] : File.join(File.expand_path("#{tmp_dir}"),"#{html_digest}.pdf")
-				password = (options.has_key?(:password)) ? options[:password] : ""
-
-				cache = params[:cache] || (Rails.env.development? ? 'false' : 'true')
-				generate_options = ActsAsFlyingSaucer::Config.options.merge({
-								                                                            :input_file => input_file,
-								                                                            :output_file => output_file,
-								                                                            :html => html,
-								                                                            :cache => cache
-				                                                            })
-
-				ActsAsFlyingSaucer::Xhtml2Pdf.write_pdf(generate_options)
-				if  password != ""
-					op=output_file.split(".")
-					op.pop
-					op  << "a"
-					op=op.to_s+".pdf"
-					output_file_name =  op
-					ActsAsFlyingSaucer::Xhtml2Pdf.encrypt_pdf(generate_options,output_file_name,password)
-					output_file = op
-				end
+				options[:tidy_clean] = tidy_clean
+				options[:cache] = params[:cache]
+				output_file = HtmlToPdfConverter.convert html, options
 				# restoring the host
 				if defined?(Rails)
 				 ActionController::Base.asset_host = host
@@ -107,5 +82,4 @@ module ActsAsFlyingSaucer
 			end
 		end
 	end
-
 end
