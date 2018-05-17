@@ -22,6 +22,7 @@ import org.xhtmlrenderer.layout.SharedContext;
 import org.xhtmlrenderer.pdf.ITextFontContext;
 import org.xhtmlrenderer.pdf.ITextFontResolver;
 import org.xhtmlrenderer.pdf.ITextOutputDevice;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xhtmlrenderer.pdf.ITextReplacedElementFactory;
 import org.xhtmlrenderer.pdf.ITextTextRenderer;
 import org.xhtmlrenderer.pdf.ITextUserAgent;
@@ -37,7 +38,7 @@ import org.xhtmlrenderer.util.Configuration;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfWriter;
 
-public class SilentPrintITextRenderer {
+public class SilentPrintITextRenderer extends ITextRenderer {
 	// These two defaults combine to produce an effective resolution of 96
 	// px to the inch
 	private static final float DEFAULT_DOTS_PER_POINT = 20f * 4f / 3f;

@@ -13,6 +13,8 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.xhtmlrenderer.pdf.ITextRenderer;
+
 import com.lowagie.text.pdf.BaseFont;
 
 public class Xhtml2Pdf {
@@ -23,11 +25,12 @@ public class Xhtml2Pdf {
 	public static void main(String[] args) throws Exception {
 		String input = args[0];
 		String output = args[1];
+		boolean silentPrint = args.length == 3 ? Boolean.parseBoolean(args[2]) : false;
 		try {
 			disableCertificateChecking();
 			String url = new File(input).toURI().toURL().toString();
 			OutputStream os = new FileOutputStream(output);
-			SilentPrintITextRenderer renderer = new SilentPrintITextRenderer();
+			ITextRenderer renderer = silentPrint ? new SilentPrintITextRenderer() : new ITextRenderer();
 			for (String font : FONTS)
 				renderer.getFontResolver().addFont("/fonts/" + font + ".ttf",
 						BaseFont.IDENTITY_H, BaseFont.EMBEDDED);

@@ -69,11 +69,13 @@ module ActsAsFlyingSaucer
 				password = (options.has_key?(:password)) ? options[:password] : ""
 
 				cache = params[:cache] || (Rails.env.development? ? 'false' : 'true')
+				silent_print = params[:silent_print] ? Boolean(params[:silent_print]) : Boolean(options[:silent_print])
 				generate_options = ActsAsFlyingSaucer::Config.options.merge({
 								                                                            :input_file => input_file,
 								                                                            :output_file => output_file,
 								                                                            :html => html,
-								                                                            :cache => cache
+								                                                            :cache => cache,
+								                                                            :silent_print => silent_print
 				                                                            })
 
 				ActsAsFlyingSaucer::Xhtml2Pdf.write_pdf(generate_options)
