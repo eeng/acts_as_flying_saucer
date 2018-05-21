@@ -29,7 +29,8 @@ module ActsAsFlyingSaucer
                                                                           :input_file => input_file,
                                                                           :output_file => output_file,
                                                                           :html => html,
-                                                                          :cache => cache
+                                                                          :cache => cache,
+                                                                          :silent_print => options[:silent_print]
                                                                   })
 
       ActsAsFlyingSaucer::Xhtml2Pdf.write_pdf(generate_options)

@@ -4,7 +4,7 @@ module ActsAsFlyingSaucer
 	# Xhtml2Pdf
 	#
 	class Xhtml2Pdf
-		def self.write_pdf(options)		 
+		def self.write_pdf(options)
 		  return if options[:cache] == "true" && File.exists?(options[:output_file])
 
 			if !File.exists?(options[:input_file])
@@ -16,11 +16,11 @@ module ActsAsFlyingSaucer
 			java_dir = File.join(File.expand_path(File.dirname(__FILE__)), "java")
 			class_path = "'.#{options[:classpath_separator]}#{java_dir}/jar/acts_as_flying_saucer.jar'"
 			if options[:nailgun]
-				command = "#{Nailgun::NgCommand::NGPATH} --nailgun-server #{ActsAsFlyingSaucer::Config.options[:nailgun_host]}  --nailgun-port #{ ActsAsFlyingSaucer::Config.options[:nailgun_port]} Xhtml2Pdf #{options[:input_file]} #{options[:output_file]} 2>&1"
+				command = "#{Nailgun::NgCommand::NGPATH} --nailgun-server #{ActsAsFlyingSaucer::Config.options[:nailgun_host]}  --nailgun-port #{ ActsAsFlyingSaucer::Config.options[:nailgun_port]} Xhtml2Pdf #{options[:input_file]} #{options[:output_file]} #{options[:silent_print]} 2>&1"
 			else
 				command = "#{options[:java_bin]} -Xmx512m -Djava.awt.headless=true -cp #{class_path} acts_as_flying_saucer.Xhtml2Pdf #{options[:input_file]} #{options[:output_file]}"
 			end
-			
+
 			ActsAsFlyingSaucer::Config.setup_nailgun unless ActsAsFlyingSaucer::Config.nailgun_running?
 			output = `#{command}`
 			Rails.logger.error output if output.present?
