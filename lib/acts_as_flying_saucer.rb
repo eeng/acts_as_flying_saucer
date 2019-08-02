@@ -16,10 +16,10 @@ end
 
 module ActsAsFlyingSaucer
   class HtmlRenderer
-    def self.render_from_outside_request  parcial, ah = nil, assigns = nil
+    def self.render_from_outside_request  parcial, ah = nil, params = nil
       original = ActionController::Base.asset_host
-      ActionController::Base.asset_host = ah
-      ApplicationController.renderer.new(http_host: ah).render parcial, assigns
+      ActionController::Base.asset_host = ah if ah
+      ApplicationController.renderer.new(http_host: ActionController::Base.asset_host).render parcial, params
     ensure
       ActionController::Base.asset_host = original
     end
