@@ -80,6 +80,8 @@ module ActsAsFlyingSaucer
 				  send_file_options.merge!(options[:send_file]) if options.respond_to?(:merge) && options[:send_file]
 				  send_file(output_file, send_file_options)
         end
+			ensure
+				ActionController::Base.asset_host = host if host != ActionController::Base.asset_host
 			end
 		end
 	end
