@@ -62,10 +62,6 @@ module ActsAsFlyingSaucer
 				options[:cache] = params[:cache] || (Rails.env.development? ? 'false' : 'true')
         options[:silent_print] = params[:silent_print] ? Boolean(params[:silent_print]) : Boolean(options[:silent_print])
 				output_file = HtmlToPdfConverter.convert html, options
-				# restoring the host
-				if defined?(Rails)
-				 ActionController::Base.asset_host = host
-				end
 
 				# sending the file to the client
         if options[:send_to_client] == false
