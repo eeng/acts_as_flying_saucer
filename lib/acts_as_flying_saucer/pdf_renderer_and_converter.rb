@@ -1,7 +1,7 @@
 module ActsAsFlyingSaucer
   class PdfRenderer
     def self.render parcial, ah = nil, params = nil
-      HtmlToPdfConverter.convert render_html parcial, ah, params
+      HtmlToPdfConverter.convert render_html(parcial, ah, params.slice(:assigns, :locals)), params.except(:assigns, :locals)
     end
 
     def self.render_html parcial, ah = nil, params = nil
